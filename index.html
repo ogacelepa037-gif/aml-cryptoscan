@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>AmlCryptoScan — TRON TRC20 AML Verification | Wallet Risk Score &amp; Sanctions Screening</title>
+  <meta name="description" content="AmlCryptoScan checks any TRON TRC20 wallet or USDT TRC20 transaction for AML risk, sanctions exposure, and on-chain forensics. First check free, then $1 per check."/>
+  <meta name="keywords" content="aml cryptoscan, crypto scan tron, tron risk check, TRC20 AML check, TRON wallet risk score, USDT TRC20 AML, tron address checker, TRC20 compliance, TRON sanctions screening, tron blockchain AML, tron wallet verification, TRC20 risk analysis, TRON mixer detection, tron dark market check, USDT compliance check, tron forensics, TRC20 due diligence, TRON OFAC check, tron risk score, crypto AML tron, tron address risk, TRC20 AML report"/>
+  <meta name="author" content="AmlCryptoScan"/>
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+  <link rel="canonical" href="https://aml-cryptoscan.vercel.app/"/>
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://aml-cryptoscan.vercel.app/"/>
+  <meta property="og:title" content="AmlCryptoScan — TRON TRC20 AML Compliance · Instant Risk Reports"/>
+  <meta property="og:description" content="Instant AML checks for TRON wallets and TRC20 transactions. Risk scoring, sanctions screening, mixer detection. First check free."/>
+  <meta property="og:image" content="https://aml-cryptoscan.vercel.app/og-image.png"/>
+  <meta property="og:site_name" content="AmlCryptoScan"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="AmlCryptoScan — TRON TRC20 AML Compliance"/>
+  <meta name="twitter:description" content="Check any TRON wallet or TRC20 address for AML risk, sanctions, and compliance flags. First check free, then $1 per check."/>
+  <meta name="twitter:image" content="https://aml-cryptoscan.vercel.app/og-image.png"/>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"AmlCryptoScan","url":"https://aml-cryptoscan.vercel.app","description":"AmlCryptoScan is a TRON network AML compliance platform providing TRC20 wallet verification, sanctions screening, and blockchain forensics.","potentialAction":{"@type":"SearchAction","target":"https://aml-cryptoscan.vercel.app/check?address={search_term_string}","query-input":"required name=search_term_string"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"AmlCryptoScan","applicationCategory":"FinanceApplication","operatingSystem":"Web Browser","url":"https://aml-cryptoscan.vercel.app","description":"TRON AML compliance platform for TRC20 wallet risk scoring, USDT TRC20 compliance checks, sanctions screening, mixer detection, and blockchain forensics reports.","offers":{"@type":"Offer","price":"1.00","priceCurrency":"USD","description":"First check free, then $1 per check"},"featureList":["TRON Wallet AML Risk Scoring","TRC20 Address Verification","USDT TRC20 Compliance Check","Sanctions Screening","TRON Mixer Detection","Transaction Graph Analysis","PDF Reports","Bulk TRC20 Screening","REST API Access","TRON Address Monitoring"]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is AmlCryptoScan?","acceptedAnswer":{"@type":"Answer","text":"AmlCryptoScan is a TRON network AML compliance platform. It checks any TRC20 wallet address or transaction for AML risk, sanctions exposure, mixer usage, and other on-chain risk indicators, and returns a compliance report. The first check is free; each check after that is $1."}},{"@type":"Question","name":"How does TRON AML risk scoring work?","acceptedAnswer":{"@type":"Answer","text":"AmlCryptoScan analyzes the on-chain transaction history of a TRON address, traces fund flows through the TRC20 blockchain graph, checks against sanctions and watchlists, looks for mixer usage, and calculates an AML risk score from 0 (clean) to 100 (high risk)."}},{"@type":"Question","name":"Does AmlCryptoScan support USDT TRC20?","acceptedAnswer":{"@type":"Answer","text":"Yes. AmlCryptoScan supports USDT TRC20 (Tether on TRON), TRX (native TRON), and other TRC20 tokens. It checks wallet addresses, transaction hashes, and contract interactions on the TRON network."}}]}
+  </script>
+
+  <!-- Favicon — shield + node mark -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='64' y2='64'%3E%3Cstop offset='0' stop-color='%232563EB'/%3E%3Cstop offset='1' stop-color='%234F8CFF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%23080A0F'/%3E%3Cpath d='M32 8 L52 16 V32 C52 45 43 53 32 57 C21 53 12 45 12 32 V16 Z' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3Cpath d='M23 31 L29 37 L41 24' fill='none' stroke='url(%23g)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --void:     #05070C;
+      --void2:    #080A11;
+      --surface:  #0E121C;
+      --surface2: #141926;
+      --surface3: #1A2032;
+      --border:   rgba(255,255,255,0.06);
+      --border2:  rgba(37,99,235,0.25);
+      --border3:  rgba(0,212,170,0.2);
+
+      --blue:     #2563EB;
+      --blue2:    #4F8CFF;
+      --blue3:    rgba(37,99,235,0.16);
+      --teal:     #00D4AA;
+      --teal2:    #00B894;
+      --teal3:    rgba(0,212,170,0.1);
+      --amber:    #F59E0B;
+      --ice:      #EEF2FF;
+      --ice2:     #C8D0E8;
+      --muted:    #4A5568;
+      --muted2:   #6B7280;
+
+      --radius:   10px;
+      --radius2:  16px;
+      --radius3:  22px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--void);
+      color: var(--ice2);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--void); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
+
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .bg-grid::before {
+      content: '';
+      position: absolute; inset: -100%;
+      background-image:
+        linear-gradient(rgba(37,99,235,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,0.03) 1px, transparent 1px);
+      background-size: 72px 72px;
+      animation: gridDrift 40s linear infinite;
+    }
+    .bg-grid::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,99,235,0.06) 0%, transparent 65%),
+                  radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0,212,170,0.04) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 40% at 10% 60%, rgba(37,99,235,0.03) 0%, transparent 55%);
+    }
+    @keyframes gridDrift { from { transform: translateY(0); } to { transform: translateY(72px); } }
+
+    .hex-node {
+      position: fixed;
+      pointer-events: none; z-index: 0;
+      width: 300px; height: 300px;
+      opacity: 0.04;
+    }
+    .hex-node svg { width: 100%; height: 100%; }
+    .hex-node:nth-child(1) { top: -80px; right: -60px; }
+    .hex-node:nth-child(2) { bottom: 10%; left: -80px; transform: rotate(30deg); }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      background: rgba(8,10,15,0.85);
+      backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+    }
+    nav::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--blue) 30%, var(--blue) 70%, transparent 100%);
+      opacity: 0.3;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .logo-hex {
+      width: 36px; height: 36px; flex-shrink: 0;
+    }
+    .logo-hex svg { width: 36px; height: 36px; }
+    .logo-wordmark {
+      display: flex; flex-direction: column; line-height: 1;
+    }
+    .logo-primary {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px; font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--ice);
+    }
+    .logo-primary .accent { color: var(--blue2); }
+    .logo-secondary {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; font-weight: 400;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted2); margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex; gap: 2px; align-items: center;
+    }
+    .nav-link {
+      padding: 6px 14px; border-radius: 8px;
+      color: var(--muted2); font-size: 13.5px; font-weight: 500;
+      text-decoration: none; transition: all .18s;
+    }
+    .nav-link:hover { color: var(--ice2); background: rgba(255,255,255,0.04); }
+    .nav-link.active { color: var(--ice); }
+
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+
+    .status-pill {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 100px;
+      background: rgba(0,212,170,0.07);
+      border: 1px solid rgba(0,212,170,0.18);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--teal);
+      letter-spacing: 0.5px;
+    }
+    .status-dot {
+      width: 5px; height: 5px;
+      background: var(--teal); border-radius: 50%;
+      animation: pulse-teal 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-teal {
+      0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,212,170,0.5); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 5px rgba(0,212,170,0); }
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--radius);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13.5px; font-weight: 600;
+      cursor: pointer; border: none; text-decoration: none;
+      transition: all .2s cubic-bezier(.4,0,.2,1);
+      white-space: nowrap; letter-spacing: -0.1px;
+      position: relative; overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background .2s;
+    }
+    .btn:hover::before { background: rgba(255,255,255,0.06); }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 0 0 1px rgba(37,99,235,0.3), 0 4px 20px rgba(37,99,235,0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(37,99,235,0.4), 0 8px 32px rgba(37,99,235,0.4);
+    }
+    .btn-teal {
+      background: var(--teal);
+      color: #000; font-weight: 700;
+      box-shadow: 0 4px 20px rgba(0,212,170,0.2);
+    }
+    .btn-teal:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,212,170,0.35); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.04);
+      color: var(--ice2);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.12); transform: translateY(-1px); }
+    .btn-outline-red {
+      background: transparent; color: var(--blue2);
+      border: 1px solid rgba(37,99,235,0.3);
+    }
+    .btn-outline-red:hover { background: var(--blue3); border-color: var(--blue); transform: translateY(-1px); }
+    .btn-sm { padding: 7px 14px; font-size: 12px; border-radius: 8px; }
+    .btn-lg { padding: 14px 28px; font-size: 15px; border-radius: var(--radius2); }
+    .btn-xl { padding: 16px 36px; font-size: 16px; border-radius: var(--radius2); }
+    .btn-full { width: 100%; justify-content: center; }
+
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 60px;
+      align-items: center;
+      padding: 130px 80px 80px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 14px 5px 8px; border-radius: 100px;
+      background: rgba(37,99,235,0.08);
+      border: 1px solid rgba(37,99,235,0.2);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px; font-weight: 500;
+      color: var(--blue2);
+      margin-bottom: 28px; width: fit-content;
+    }
+    .hero-badge .tag {
+      background: var(--blue);
+      color: #fff; font-size: 9px; font-weight: 700;
+      padding: 2px 8px; border-radius: 100px;
+      letter-spacing: 0.8px; text-transform: uppercase;
+    }
+
+    .hero-h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(42px, 5.5vw, 68px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 0.98;
+      margin-bottom: 22px;
+      color: var(--ice);
+    }
+    .hero-h1 .line-red { color: var(--blue2); display: block; }
+    .hero-h1 .line-dim {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(238,242,255,0.2);
+    }
+
+    .hero-desc {
+      font-size: 16px; line-height: 1.75;
+      color: var(--muted2); max-width: 480px;
+      margin-bottom: 36px;
+    }
+    .hero-desc strong { color: var(--ice2); font-weight: 500; }
+
+    .hero-cta-row {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      align-items: center; margin-bottom: 40px;
+    }
+
+    .hero-trust {
+      display: flex; align-items: center; gap: 20px;
+      flex-wrap: wrap;
+    }
+    .trust-stat {
+      display: flex; flex-direction: column;
+    }
+    .trust-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--ice); letter-spacing: -0.5px;
+    }
+    .trust-lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px; color: var(--muted); letter-spacing: 1px;
+      text-transform: uppercase; margin-top: 2px;
+    }
+    .trust-divider {
+      width: 1px; height: 32px;
+      background: var(--border);
+    }
+
+    .check-widget {
+      position: relative; z-index: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius3);
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.02),
+        0 32px 80px rgba(0,0,0,0.6),
+        0 0 80px rgba(37,99,235,0.04);
+    }
+    .check-widget::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(37,99,235,0.6), rgba(0,212,170,0.4), transparent);
+    }
+
+    .cw-header {
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cw-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--muted2);
+    }
+    .cw-live {
+      display: flex; align-items: center; gap: 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; color: var(--teal); letter-spacing: 1px;
+    }
+    .cw-dot { width: 5px; height: 5px; background: var(--teal); border-radius: 50%; animation: pulse-teal 2s infinite; }
+
+    .cw-body { padding: 20px 24px; }
+
+    .cw-input-wrap {
+      position: relative; margin-bottom: 14px;
+    }
+    .cw-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--muted);
+      display: block; margin-bottom: 8px;
+    }
+    .cw-field {
+      position: relative;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      transition: border-color .2s;
+    }
+    .cw-field:focus-within {
+      border-color: rgba(37,99,235,0.4);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.06);
+    }
+    .cw-field.valid { border-color: rgba(0,212,170,0.4); box-shadow: 0 0 0 3px rgba(0,212,170,0.06); }
+    .cw-field.invalid { border-color: rgba(37,99,235,0.5); }
+
+    .cw-input {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; color: var(--ice);
+      background: none; border: none; outline: none;
+      width: 100%;
+    }
+    .cw-input::placeholder { color: var(--muted); }
+
+    .cw-field::after {
+      content: '';
+      position: absolute; left: 0; right: 0; bottom: -1px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--blue2), transparent);
+      opacity: 0;
+      transform: scaleX(0);
+      transition: opacity .2s, transform .4s;
+    }
+    .cw-field:focus-within::after { opacity: 1; transform: scaleX(1); }
+    .cw-field.valid::after { background: linear-gradient(90deg, transparent, var(--teal), transparent); opacity: 1; transform: scaleX(1); }
+
+    .cw-tabs {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px; margin-bottom: 14px;
+    }
+    .cw-tab {
+      padding: 9px 8px; border-radius: 8px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+      cursor: pointer; transition: all .15s;
+    }
+    .cw-tab.on {
+      background: var(--blue3);
+      border-color: rgba(37,99,235,0.3);
+    }
+    .cw-tab-ico { font-size: 16px; display: block; margin-bottom: 3px; }
+    .cw-tab-lbl {
+      font-size: 10px; font-weight: 600;
+      color: var(--muted2); display: block;
+    }
+    .cw-tab.on .cw-tab-lbl { color: var(--blue2); }
+
+    .cw-preview {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: var(--radius);
+      padding: 12px 14px; margin-bottom: 14px;
+    }
+    .cw-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 4px 0;
+    }
+    .cw-row-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--muted);
+    }
+    .cw-row-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600;
+    }
+    .v-red { color: var(--blue2); }
+    .v-teal { color: var(--teal); }
+    .v-amber { color: var(--amber); }
+
+    .cw-sep { height: 1px; background: var(--border); margin: 6px 0; }
+
+    .cw-actions { display: flex; flex-direction: column; gap: 8px; }
+
+    .cw-note {
+      text-align: center; padding: 10px 0 0;
+    }
+    .cw-note span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px; color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    .ticker {
+      position: relative; z-index: 1;
+      overflow: hidden;
+      padding: 11px 0;
+      background: rgba(11,13,20,0.9);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .ticker::before,
+    .ticker::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2;
+    }
+    .ticker::before { left: 0; background: linear-gradient(90deg, var(--void), transparent); }
+    .ticker::after  { right: 0; background: linear-gradient(-90deg, var(--void), transparent); }
+
+    .ticker-track {
+      display: flex; gap: 48px;
+      animation: tickerScroll 55s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-item {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; flex-shrink: 0;
+    }
+    .ti-key { color: var(--muted); }
+    .ti-val-red { color: var(--blue2); }
+    .ti-val-teal { color: var(--teal); }
+    .ti-val-amber { color: var(--amber); }
+    .ti-val-ice { color: var(--ice2); }
+    .ti-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .section {
+      position: relative; z-index: 1;
+      padding: 96px 80px;
+      max-width: 1320px; margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--blue2); margin-bottom: 16px;
+    }
+    .eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--blue2); display: block; }
+
+    .sec-h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      color: var(--ice);
+      margin-bottom: 14px;
+    }
+    .sec-h2 .accent { color: var(--blue2); }
+    .sec-h2 .accent-teal { color: var(--teal); }
+
+    .sec-desc {
+      font-size: 15px; line-height: 1.8;
+      color: var(--muted2); max-width: 520px;
+    }
+
+    .steps-row {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 2px; margin-top: 56px;
+      position: relative;
+    }
+    .steps-row::before {
+      content: '';
+      position: absolute; top: 42px; left: 80px; right: 80px; height: 1px;
+      background: linear-gradient(90deg, var(--blue3), rgba(37,99,235,0.25), var(--blue3));
+      z-index: 0;
+    }
+    .step {
+      padding: 0 24px;
+      text-align: center; position: relative; z-index: 1;
+    }
+    .step-num-wrap {
+      width: 56px; height: 56px; margin: 0 auto 20px;
+      position: relative;
+    }
+    .step-num-wrap::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+    }
+    .step-num {
+      position: relative; z-index: 1;
+      width: 56px; height: 56px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; font-weight: 800;
+      color: var(--blue2);
+    }
+    .step h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px; font-weight: 700;
+      color: var(--ice); margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+    .step p { font-size: 13px; color: var(--muted2); line-height: 1.72; }
+
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 16px; margin-top: 52px;
+    }
+    .f-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 30px;
+      position: relative; overflow: hidden;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+    }
+    .f-card:hover {
+      border-color: rgba(37,99,235,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(37,99,235,0.04);
+    }
+    .f-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(37,99,235,0.3), transparent);
+      opacity: 0; transition: opacity .25s;
+    }
+    .f-card:hover::before { opacity: 1; }
+
+    .f-card-icon {
+      width: 44px; height: 44px;
+      background: rgba(37,99,235,0.08);
+      border: 1px solid rgba(37,99,235,0.15);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 18px;
+    }
+    .f-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--ice); letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+    .f-card p { font-size: 13px; color: var(--muted2); line-height: 1.75; }
+
+    .f-card.teal-accent .f-card-icon {
+      background: rgba(0,212,170,0.08);
+      border-color: rgba(0,212,170,0.15);
+    }
+    .f-card.teal-accent:hover { border-color: rgba(0,212,170,0.2); }
+    .f-card.teal-accent::before { background: linear-gradient(90deg, transparent, rgba(0,212,170,0.3), transparent); }
+
+    .risk-layout {
+      display: grid; grid-template-columns: 1fr 380px;
+      gap: 24px; margin-top: 52px;
+    }
+    .risk-categories { display: flex; flex-direction: column; gap: 10px; }
+
+    .risk-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color .2s, transform .2s;
+      cursor: default;
+    }
+    .risk-item:hover { border-color: rgba(255,255,255,0.1); transform: translateX(4px); }
+
+    .ri-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+    }
+    .ri-icon.red-bg { background: rgba(37,99,235,0.1); }
+    .ri-icon.amber-bg { background: rgba(245,158,11,0.1); }
+    .ri-icon.teal-bg { background: rgba(0,212,170,0.1); }
+
+    .ri-info { flex: 1; }
+    .ri-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px; font-weight: 600;
+      color: var(--ice); margin-bottom: 3px;
+    }
+    .ri-sub { font-size: 12px; color: var(--muted2); }
+
+    .ri-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; font-weight: 600;
+      padding: 3px 10px; border-radius: 100px;
+      letter-spacing: 0.8px; text-transform: uppercase;
+    }
+    .ri-badge.high { background: rgba(37,99,235,0.12); color: var(--blue2); border: 1px solid rgba(37,99,235,0.2); }
+    .ri-badge.med { background: rgba(245,158,11,0.1); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+    .ri-badge.low { background: rgba(0,212,170,0.1); color: var(--teal); border: 1px solid rgba(0,212,170,0.2); }
+
+    .risk-score-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 28px;
+      position: sticky; top: 88px;
+    }
+    .rsc-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .score-gauge {
+      position: relative; margin: 0 auto 24px;
+      width: 160px; height: 90px;
+    }
+    .score-gauge svg { width: 160px; height: 90px; }
+    .score-num {
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 38px; font-weight: 800;
+      color: var(--teal); letter-spacing: -2px;
+    }
+    .score-lbl {
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--teal); letter-spacing: 1.5px;
+      margin-bottom: 20px;
+    }
+
+    .rsc-metrics {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 18px;
+    }
+    .rsc-metric {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+    .rsc-mlbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted);
+      display: block; margin-bottom: 4px;
+    }
+    .rsc-mval {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px; font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .svc-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 16px; margin-top: 52px;
+    }
+    .svc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 32px;
+      position: relative; overflow: hidden;
+      transition: border-color .25s, transform .25s;
+    }
+    .svc-card:hover { transform: translateY(-5px); }
+
+    .svc-card.primary {
+      border-color: rgba(37,99,235,0.2);
+      background: linear-gradient(140deg, rgba(37,99,235,0.05) 0%, var(--surface) 60%);
+    }
+    .svc-card.primary::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--blue2), transparent);
+    }
+    .svc-card.secondary {
+      border-color: rgba(0,212,170,0.15);
+      background: linear-gradient(140deg, rgba(0,212,170,0.04) 0%, var(--surface) 60%);
+    }
+    .svc-card.secondary::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    }
+
+    .svc-icon {
+      width: 50px; height: 50px;
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 20px;
+      background: rgba(37,99,235,0.08);
+      border: 1px solid rgba(37,99,235,0.12);
+    }
+    .svc-card.secondary .svc-icon {
+      background: rgba(0,212,170,0.08);
+      border-color: rgba(0,212,170,0.12);
+    }
+
+    .svc-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px; font-weight: 700;
+      letter-spacing: -0.5px; color: var(--ice);
+      margin-bottom: 8px;
+    }
+    .svc-card > p { font-size: 13.5px; color: var(--muted2); line-height: 1.75; margin-bottom: 22px; }
+
+    .svc-meta {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 22px;
+    }
+    .svc-meta-cell {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 11px 13px;
+    }
+    .smc-lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted);
+      display: block; margin-bottom: 3px;
+    }
+    .smc-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px; font-weight: 700;
+    }
+
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 14px; margin-top: 52px;
+    }
+    .price-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 28px 24px;
+      position: relative; overflow: hidden;
+      transition: border-color .25s, transform .25s;
+    }
+    .price-card:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-4px); }
+    .price-card.featured {
+      border-color: rgba(37,99,235,0.3);
+      background: linear-gradient(140deg, rgba(37,99,235,0.06) 0%, var(--surface) 70%);
+    }
+    .price-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute; top: -1px; right: 16px;
+      background: var(--blue);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5px; font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 4px 10px; border-radius: 0 0 8px 8px;
+    }
+    .price-icon { font-size: 26px; margin-bottom: 16px; display: block; }
+    .price-amount {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 30px; font-weight: 800;
+      letter-spacing: -1px; color: var(--ice);
+      margin-bottom: 4px;
+    }
+    .price-amount .currency { font-size: 16px; font-weight: 500; color: var(--muted2); }
+    .price-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--muted);
+      margin-bottom: 16px; letter-spacing: 0.5px;
+    }
+    .price-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px; font-weight: 700;
+      color: var(--ice); margin-bottom: 8px;
+    }
+    .price-card p { font-size: 12.5px; color: var(--muted2); line-height: 1.72; }
+
+    .cta-banner {
+      position: relative; z-index: 1;
+      max-width: 1320px; margin: 0 auto; padding: 0 80px 80px;
+    }
+    .cta-inner {
+      background: var(--surface);
+      border: 1px solid rgba(37,99,235,0.15);
+      border-radius: var(--radius3);
+      padding: 60px 64px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 40px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-inner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 100% at 0% 50%, rgba(37,99,235,0.06) 0%, transparent 65%);
+    }
+    .cta-inner::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, var(--blue), rgba(37,99,235,0.2), transparent);
+    }
+    .cta-text { position: relative; z-index: 1; }
+    .cta-text h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 34px; font-weight: 800;
+      letter-spacing: -1.2px; color: var(--ice);
+      margin-bottom: 12px; line-height: 1.1;
+    }
+    .cta-text h2 span { color: var(--blue2); }
+    .cta-text p { font-size: 15px; color: var(--muted2); line-height: 1.7; max-width: 480px; }
+    .cta-actions { display: flex; gap: 12px; flex-shrink: 0; position: relative; z-index: 1; }
+
+    .faq-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-top: 50px;
+    }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      transition: border-color .2s, transform .2s;
+      cursor: pointer;
+    }
+    .faq-item:hover { border-color: rgba(37,99,235,0.15); transform: translateX(2px); }
+    .faq-item h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13.5px; font-weight: 700;
+      color: var(--blue2); margin-bottom: 8px;
+      line-height: 1.4; letter-spacing: -0.2px;
+    }
+    .faq-item p { font-size: 12.5px; color: var(--muted2); line-height: 1.82; }
+
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 56px 80px 40px;
+    }
+    footer::before {
+      content: '';
+      position: absolute; top: 0; left: 80px; right: 80px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(37,99,235,0.3), transparent);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 40px; max-width: 1320px; margin: 0 auto 48px;
+    }
+    .ft-brand-desc {
+      font-size: 13px; color: var(--muted2);
+      line-height: 1.75; margin-top: 16px; max-width: 280px;
+    }
+    .ft-col-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .ft-links { display: flex; flex-direction: column; gap: 10px; }
+    .ft-links a {
+      color: var(--muted2); font-size: 13px;
+      text-decoration: none; transition: color .18s;
+    }
+    .ft-links a:hover { color: var(--ice2); }
+    .ft-bottom {
+      max-width: 1320px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border); padding-top: 24px;
+    }
+    .ft-copy {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; color: var(--muted); letter-spacing: 0.5px;
+    }
+    .ft-disclaimer {
+      font-size: 11px; color: var(--muted);
+      max-width: 420px; text-align: right; line-height: 1.6;
+    }
+
+    .section-divider {
+      position: relative; z-index: 1;
+      height: 1px; max-width: 1320px; margin: 0 auto;
+      background: var(--border);
+    }
+
+    @media(max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; padding: 110px 40px 60px; }
+      .check-widget { max-width: 480px; }
+      .section { padding: 70px 40px; }
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+      .risk-layout { grid-template-columns: 1fr; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr 1fr; }
+      .cta-inner { grid-template-columns: 1fr; }
+      .cta-banner { padding: 0 40px 60px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 40px; }
+      nav { padding: 0 24px; }
+      .steps-row { grid-template-columns: 1fr 1fr; }
+      .steps-row::before { display: none; }
+    }
+    @media(max-width: 640px) {
+      .hero { padding: 100px 20px 50px; }
+      .section { padding: 56px 20px; }
+      .hero-h1 { font-size: 40px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .steps-row { grid-template-columns: 1fr; }
+      nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      footer { padding: 32px 20px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .ft-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .ft-disclaimer { text-align: center; }
+      .cta-inner { padding: 36px 24px; }
+      .cta-banner { padding: 0 20px 50px; }
+    }
+
+    .mt-0 { margin-top: 0; }
+    .text-red { color: var(--blue2); }
+    .text-teal { color: var(--teal); }
+    .text-amber { color: var(--amber); }
+    .text-ice { color: var(--ice); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .5s ease both; }
+    .delay-1 { animation-delay: .1s; }
+    .delay-2 { animation-delay: .2s; }
+    .delay-3 { animation-delay: .3s; }
+    .delay-4 { animation-delay: .4s; }
+
+    .sec-alt {
+      background: var(--void2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="hex-node" aria-hidden="true">
+  <svg viewBox="0 0 300 300"><path d="M150 15 L250 55 V150 C250 205 210 245 150 275 C90 245 50 205 50 150 V55 Z" fill="none" stroke="#2563EB" stroke-width="2"/></svg>
+</div>
+<div class="hex-node" aria-hidden="true">
+  <svg viewBox="0 0 300 300"><path d="M150 15 L250 55 V150 C250 205 210 245 150 275 C90 245 50 205 50 150 V55 Z" fill="none" stroke="#2563EB" stroke-width="1.5"/></svg>
+</div>
+
+<!-- ═══════ NAV ═══════ -->
+<nav aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="AmlCryptoScan Home">
+    <div class="logo-hex">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="36" height="36" rx="9" fill="#0D1117"/>
+        <defs>
+          <linearGradient id="lgn" x1="0" y1="0" x2="36" y2="36">
+            <stop stop-color="#2563EB"/>
+            <stop offset="1" stop-color="#4F8CFF"/>
+          </linearGradient>
+        </defs>
+        <path d="M18 5 L28 9 V18 C28 25.5 24 30 18 32.5 C12 30 8 25.5 8 18 V9 Z" fill="none" stroke="url(#lgn)" stroke-width="1.6"/>
+        <path d="M13 17.5 L16.5 21 L23 13.5" fill="none" stroke="url(#lgn)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="logo-wordmark">
+      <span class="logo-primary">AML<span class="accent">CRYPTO</span>SCAN</span>
+      <span class="logo-secondary">TRC20 · TRON · COMPLIANCE</span>
+    </div>
+  </a>
+
+  <nav class="nav-links" aria-label="Page sections">
+    <a href="#scan" class="nav-link active">AML Scan</a>
+    <a href="#how" class="nav-link">How it Works</a>
+    <a href="#risk" class="nav-link">Risk Score</a>
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#faq" class="nav-link">FAQ</a>
+  </nav>
+
+  <div class="nav-actions">
+    <div class="status-pill" aria-label="System status: TRON network live">
+      <span class="status-dot"></span>TRON LIVE
+    </div>
+    <button class="btn btn-ghost btn-sm xmd8h1clm06 x9wbqc5k6s" aria-label="Sign in">Sign In</button>
+    <button class="btn btn-primary btn-sm xmd8h1clm06 x9wbqc5k6s" aria-label="Run AML scan">AML Scan</button>
+  </div>
+</nav>
+
+<main>
+<!-- ═══════ HERO ═══════ -->
+<section class="hero" id="scan" aria-labelledby="hero-heading">
+
+  <div>
+    <div class="hero-badge fade-up">
+      <span class="tag">FREE</span>
+      First TRC20 Check Free · Then $1 per Check
+    </div>
+
+    <h1 class="hero-h1 fade-up delay-1" id="hero-heading">
+      <span>AML</span>
+      <span class="line-red">SCAN</span>
+      <span class="line-dim">RISK</span>
+    </h1>
+
+    <p class="hero-desc fade-up delay-2">
+      A <strong>TRON AML compliance tool</strong> for TRC20 wallets and USDT TRC20 transactions. Check any TRON address for sanctions exposure, mixer activity, and other on-chain risk indicators — first check free, then $1 per check.
+    </p>
+
+    <div class="hero-cta-row fade-up delay-3">
+      <button class="btn btn-primary btn-xl xmd8h1clm06 x9wbqc5k6s" aria-label="Run AML scan now">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Run AML Scan
+      </button>
+      <button class="btn btn-ghost btn-xl xmd8h1clm06 x9wbqc5k6s" aria-label="View sample AML report">View Sample Report</button>
+    </div>
+
+    <div class="hero-trust fade-up delay-4">
+      <div class="trust-stat">
+        <span class="trust-num">$0</span>
+        <span class="trust-lbl">First Check</span>
+      </div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-stat">
+        <span class="trust-num">$1</span>
+        <span class="trust-lbl">Every Check After</span>
+      </div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-stat">
+        <span class="trust-num">TRC20</span>
+        <span class="trust-lbl">Full Token Coverage</span>
+      </div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-stat">
+        <span class="trust-num">PDF</span>
+        <span class="trust-lbl">Downloadable Report</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="check-widget fade-up delay-2" role="region" aria-label="TRON AML check widget">
+    <div class="cw-header">
+      <span class="cw-title">◈ TRON AML SCANNER</span>
+      <div class="cw-live" aria-label="Scanner ready">
+        <span class="cw-dot"></span>READY
+      </div>
+    </div>
+
+    <div class="cw-body">
+      <div class="cw-input-wrap">
+        <label class="cw-label" for="tron-address">TRC20 Address / Transaction Hash / USDT Wallet</label>
+        <div class="cw-field" id="cw-field-wrap">
+          <input
+            class="cw-input"
+            id="tron-address"
+            type="text"
+            placeholder="T... · Enter TRON wallet or TX hash"
+            aria-label="Enter TRON address or transaction hash"
+            autocomplete="off"
+            spellcheck="false"
+          >
+        </div>
+      </div>
+
+      <div class="cw-tabs" role="tablist" aria-label="Check type">
+        <div class="cw-tab on" role="tab" aria-selected="true" tabindex="0" onclick="selectTab(this)">
+          <span class="cw-tab-ico">🔍</span>
+          <span class="cw-tab-lbl">AML Scan</span>
+        </div>
+        <div class="cw-tab" role="tab" aria-selected="false" tabindex="0" onclick="selectTab(this)">
+          <span class="cw-tab-ico">👁</span>
+          <span class="cw-tab-lbl">View AML</span>
+        </div>
+        <div class="cw-tab" role="tab" aria-selected="false" tabindex="0" onclick="selectTab(this)">
+          <span class="cw-tab-ico">📡</span>
+          <span class="cw-tab-lbl">Monitor</span>
+        </div>
+      </div>
+
+      <div class="cw-preview" aria-label="Scan parameters">
+        <div class="cw-row">
+          <span class="cw-row-key">Network</span>
+          <span class="cw-row-val v-red">TRON · TRC20</span>
+        </div>
+        <div class="cw-sep"></div>
+        <div class="cw-row">
+          <span class="cw-row-key">Scan Type</span>
+          <span class="cw-row-val v-teal">On-chain Graph Trace</span>
+        </div>
+        <div class="cw-row">
+          <span class="cw-row-key">Screening</span>
+          <span class="cw-row-val v-teal">Sanctions &amp; Watchlists</span>
+        </div>
+        <div class="cw-row">
+          <span class="cw-row-key">Report Format</span>
+          <span class="cw-row-val v-amber">PDF + JSON</span>
+        </div>
+        <div class="cw-row">
+          <span class="cw-row-key">Price</span>
+          <span class="cw-row-val v-teal">Free 1st scan · $1 after</span>
+        </div>
+      </div>
+
+      <div class="cw-actions">
+        <button class="btn btn-primary btn-full btn-lg xmd8h1clm06 x9wbqc5k6s" id="scan-btn" aria-label="Run AML scan">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Run AML Scan
+        </button>
+        <button class="btn btn-ghost btn-full xmd8h1clm06 x9wbqc5k6s" id="view-aml-btn" aria-label="View AML report">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          View AML Report
+        </button>
+      </div>
+
+      <div class="cw-note">
+        <span>TRC20 · USDT · TRX · All TRON Tokens Supported · First scan free</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TICKER ═══════ -->
+<div class="ticker" aria-label="TRON AML feature ticker" role="marquee">
+  <div class="ticker-track" aria-hidden="true">
+    <div class="ticker-item"><span class="ti-key">Network</span><span class="ti-val-ice">TRON mainnet</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">Tokens</span><span class="ti-val-ice">TRC20 · USDT · TRX</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">Screening</span><span class="ti-val-amber">Sanctions &amp; watchlists</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">Mixer Detection</span><span class="ti-val-teal">On-chain pattern analysis</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">Report</span><span class="ti-val-ice">PDF + JSON export</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">Pricing</span><span class="ti-val-teal">Free first check · $1 after</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">API</span><span class="ti-val-ice">REST + bulk screening</span></div>
+    <div class="ti-dot"></div>
+    <!-- repeat for seamless loop -->
+    <div class="ticker-item"><span class="ti-key">Network</span><span class="ti-val-ice">TRON mainnet</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">Tokens</span><span class="ti-val-ice">TRC20 · USDT · TRX</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">Screening</span><span class="ti-val-amber">Sanctions &amp; watchlists</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">Mixer Detection</span><span class="ti-val-teal">On-chain pattern analysis</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">Report</span><span class="ti-val-ice">PDF + JSON export</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">Pricing</span><span class="ti-val-teal">Free first check · $1 after</span></div>
+    <div class="ti-dot"></div>
+    <div class="ticker-item"><span class="ti-key">API</span><span class="ti-val-ice">REST + bulk screening</span></div>
+  </div>
+</div>
+
+<!-- ═══════ HOW IT WORKS ═══════ -->
+<section class="section" id="how" aria-labelledby="how-h">
+  <span class="eyebrow">Protocol</span>
+  <h2 class="sec-h2" id="how-h">TRON AML Scan in <span class="accent">4 Steps</span></h2>
+  <p class="sec-desc">From TRC20 address input to a compliance report you can download or share.</p>
+
+  <div class="steps-row" role="list">
+    <div class="step" role="listitem">
+      <div class="step-num-wrap"><div class="step-num">01</div></div>
+      <h3>Enter TRON Address</h3>
+      <p>Paste any TRC20 wallet, USDT TRC20 address, TRX address, or transaction hash. Basic format validation checks the address structure instantly.</p>
+    </div>
+    <div class="step" role="listitem">
+      <div class="step-num-wrap"><div class="step-num">02</div></div>
+      <h3>Choose Scan Type</h3>
+      <p>Select AML Scan, View AML report, or Monitor. Choose between a wallet check, transaction trace, or token-specific USDT TRC20 review.</p>
+    </div>
+    <div class="step" role="listitem">
+      <div class="step-num-wrap"><div class="step-num">03</div></div>
+      <h3>On-chain Analysis</h3>
+      <p>The engine traces fund flows across the TRC20 blockchain graph, checks sanctions and watchlists, and looks for mixer or dark-market exposure.</p>
+    </div>
+    <div class="step" role="listitem">
+      <div class="step-num-wrap"><div class="step-num">04</div></div>
+      <h3>Get Your Report</h3>
+      <p>Receive a TRC20 AML report — risk score 0–100, category breakdown, sanctions status, and a downloadable PDF you can keep for your records.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sec-alt">
+<!-- ═══════ FEATURES ═══════ -->
+<section class="section" aria-labelledby="feat-h">
+  <span class="eyebrow">Capabilities</span>
+  <h2 class="sec-h2" id="feat-h">TRON <span class="accent-teal">AML Coverage</span></h2>
+  <p class="sec-desc">The core building blocks of a TRC20 compliance check.</p>
+
+  <div class="feature-grid" role="list">
+    <div class="f-card" role="listitem">
+      <div class="f-card-icon">⛔</div>
+      <h3>Sanctions Screening</h3>
+      <p>Checks a TRON address and its counterparties against sanctions and watchlist data sources as part of every scan.</p>
+    </div>
+    <div class="f-card" role="listitem">
+      <div class="f-card-icon">🌀</div>
+      <h3>Mixer Pattern Detection</h3>
+      <p>Flags on-chain patterns consistent with mixing or obfuscation services on TRC20, and traces downstream exposure across linked wallets.</p>
+    </div>
+    <div class="f-card" role="listitem">
+      <div class="f-card-icon">🕸️</div>
+      <h3>Fund Flow Graph Trace</h3>
+      <p>Maps transaction flows in and out of the target TRON wallet across TRX, USDT TRC20, and other TRC20 tokens.</p>
+    </div>
+    <div class="f-card teal-accent" role="listitem">
+      <div class="f-card-icon">📊</div>
+      <h3>Composite Risk Score</h3>
+      <p>Combines sanctions results, mixer signals, and counterparty exposure into a single 0–100 risk score with a category breakdown.</p>
+    </div>
+    <div class="f-card teal-accent" role="listitem">
+      <div class="f-card-icon">📄</div>
+      <h3>Downloadable Reports</h3>
+      <p>Every scan produces a report you can download as PDF or fetch as JSON, suitable for internal recordkeeping and due diligence files.</p>
+    </div>
+    <div class="f-card teal-accent" role="listitem">
+      <div class="f-card-icon">🔗</div>
+      <h3>REST API &amp; Bulk Scan</h3>
+      <p>Integrate TRON AML screening into your own product via API, or upload a batch of TRC20 addresses for bulk screening.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════ RISK SCORE SYSTEM ═══════ -->
+<section class="section" id="risk" aria-labelledby="risk-h">
+  <span class="eyebrow">Risk Intelligence</span>
+  <h2 class="sec-h2" id="risk-h">TRON AML Risk <span class="accent">Score System</span></h2>
+  <p class="sec-desc">A composite 0–100 risk score built from on-chain risk indicators identified during a scan.</p>
+
+  <div class="risk-layout">
+    <div class="risk-categories" role="list" aria-label="Risk categories">
+      <div class="risk-item" role="listitem">
+        <div class="ri-icon red-bg">⛔</div>
+        <div class="ri-info">
+          <div class="ri-title">Sanctions List Match</div>
+          <div class="ri-sub">Direct or indirect TRON wallet link to a sanctioned entity</div>
+        </div>
+        <span class="ri-badge high">CRITICAL</span>
+      </div>
+      <div class="risk-item" role="listitem">
+        <div class="ri-icon red-bg">🌀</div>
+        <div class="ri-info">
+          <div class="ri-title">Mixer / Tumbler Exposure</div>
+          <div class="ri-sub">Funds routed through a known TRC20 obfuscation service</div>
+        </div>
+        <span class="ri-badge high">HIGH RISK</span>
+      </div>
+      <div class="risk-item" role="listitem">
+        <div class="ri-icon red-bg">🕶️</div>
+        <div class="ri-info">
+          <div class="ri-title">Dark Market Links</div>
+          <div class="ri-sub">TRC20 funds traceable to a darknet market address</div>
+        </div>
+        <span class="ri-badge high">HIGH RISK</span>
+      </div>
+      <div class="risk-item" role="listitem">
+        <div class="ri-icon red-bg">💸</div>
+        <div class="ri-info">
+          <div class="ri-title">Stolen Funds / Hack-Linked USDT</div>
+          <div class="ri-sub">USDT TRC20 traceable to a known exchange hack or theft</div>
+        </div>
+        <span class="ri-badge high">HIGH RISK</span>
+      </div>
+      <div class="risk-item" role="listitem">
+        <div class="ri-icon amber-bg">🎰</div>
+        <div class="ri-info">
+          <div class="ri-title">Unregulated Gambling Exposure</div>
+          <div class="ri-sub">TRON funds transiting through unlicensed gambling platforms</div>
+        </div>
+        <span class="ri-badge med">MEDIUM</span>
+      </div>
+      <div class="risk-item" role="listitem">
+        <div class="ri-icon amber-bg">🔄</div>
+        <div class="ri-info">
+          <div class="ri-title">High-Risk Exchange Exposure</div>
+          <div class="ri-sub">Interaction with non-KYC P2P platforms or high-risk OTC desks</div>
+        </div>
+        <span class="ri-badge med">MEDIUM</span>
+      </div>
+      <div class="risk-item" role="listitem">
+        <div class="ri-icon teal-bg">✅</div>
+        <div class="ri-info">
+          <div class="ri-title">Clean — Low Risk</div>
+          <div class="ri-sub">No flagged patterns found in the analyzed transaction graph</div>
+        </div>
+        <span class="ri-badge low">LOW RISK</span>
+      </div>
+    </div>
+
+    <div class="risk-score-card" aria-label="Example risk score display">
+      <div class="rsc-title">◈ SAMPLE RISK SCORE OUTPUT</div>
+
+      <div class="score-gauge" aria-label="Sample risk score gauge showing 12 out of 100">
+        <svg viewBox="0 0 160 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gauge-bg" x1="0" y1="0" x2="160" y2="0">
+              <stop stop-color="#1C2333"/><stop offset="1" stop-color="#1C2333"/>
+            </linearGradient>
+            <linearGradient id="gauge-fill" x1="0" y1="0" x2="160" y2="0">
+              <stop stop-color="#2563EB"/><stop offset="0.5" stop-color="#F59E0B"/><stop offset="1" stop-color="#00D4AA"/>
+            </linearGradient>
+          </defs>
+          <path d="M 10 85 A 70 70 0 0 1 150 85" stroke="#1C2333" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <path d="M 10 85 A 70 70 0 0 1 150 85" stroke="url(#gauge-fill)" stroke-width="8" stroke-linecap="round" fill="none"
+                stroke-dasharray="220" stroke-dashoffset="194"/>
+          <circle cx="22" cy="70" r="5" fill="#00D4AA"/>
+          <circle cx="22" cy="70" r="2.5" fill="#080A0F"/>
+        </svg>
+        <div class="score-num">12</div>
+      </div>
+      <div class="score-lbl">SAMPLE · LOW RISK</div>
+
+      <div class="rsc-metrics" role="list" aria-label="Risk metrics">
+        <div class="rsc-metric" role="listitem">
+          <span class="rsc-mlbl">Sanctions</span>
+          <span class="rsc-mval text-teal">CLEAR</span>
+        </div>
+        <div class="rsc-metric" role="listitem">
+          <span class="rsc-mlbl">Mixer</span>
+          <span class="rsc-mval text-teal">NONE</span>
+        </div>
+        <div class="rsc-metric" role="listitem">
+          <span class="rsc-mlbl">Dark Market</span>
+          <span class="rsc-mval text-teal">0%</span>
+        </div>
+        <div class="rsc-metric" role="listitem">
+          <span class="rsc-mlbl">USDT Flagged</span>
+          <span class="rsc-mval text-teal">NONE</span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-full xmd8h1clm06 x9wbqc5k6s" aria-label="Run AML scan now">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Run AML Scan Now
+      </button>
+      <div style="margin-top:10px;">
+        <button class="btn btn-ghost btn-full btn-sm xmd8h1clm06 x9wbqc5k6s" aria-label="View sample AML report">View Sample Report</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-alt">
+<!-- ═══════ SERVICES ═══════ -->
+<section class="section" id="services" aria-labelledby="svc-h">
+  <span class="eyebrow">Core Services</span>
+  <h2 class="sec-h2" id="svc-h">TRON <span class="accent">AML Suite</span></h2>
+  <p class="sec-desc">From a single TRC20 check to bulk API screening.</p>
+
+  <div class="svc-grid" role="list">
+    <div class="svc-card primary" role="listitem">
+      <div class="svc-icon">🔍</div>
+      <h3>TRC20 Wallet AML Check</h3>
+      <p>AML risk scoring for any TRON wallet or USDT TRC20 address. Includes fund-flow analysis, sanctions screening, mixer-pattern detection, and a downloadable report.</p>
+      <div class="svc-meta">
+        <div class="svc-meta-cell">
+          <span class="smc-lbl">Price</span>
+          <span class="smc-val text-red">Free 1st · $1 after</span>
+        </div>
+        <div class="svc-meta-cell">
+          <span class="smc-lbl">Format</span>
+          <span class="smc-val text-amber">PDF + JSON</span>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full xmd8h1clm06 x9wbqc5k6s" aria-label="Check TRON wallet AML compliance">Check TRON Wallet</button>
+    </div>
+
+    <div class="svc-card secondary" role="listitem">
+      <div class="svc-icon">🔗</div>
+      <h3>Bulk &amp; API Screening</h3>
+      <p>Screen multiple TRC20 addresses via REST API or CSV upload. Built for TRON exchanges, USDT payment processors, OTC desks, and compliance teams.</p>
+      <div class="svc-meta">
+        <div class="svc-meta-cell">
+          <span class="smc-lbl">Access</span>
+          <span class="smc-val text-teal">API key</span>
+        </div>
+        <div class="svc-meta-cell">
+          <span class="smc-lbl">Format</span>
+          <span class="smc-val text-teal">JSON</span>
+        </div>
+      </div>
+      <button class="btn btn-teal btn-full xmd8h1clm06 x9wbqc5k6s" aria-label="Get TRON AML API access">Get API Access</button>
+    </div>
+
+    <div class="svc-card" role="listitem">
+      <div class="svc-icon">📡</div>
+      <h3>TRON Address Monitoring</h3>
+      <p>Subscribe a TRC20 wallet for ongoing monitoring. Get an alert when a monitored TRON address interacts with a sanctioned, mixer-linked, or otherwise flagged source.</p>
+      <div class="svc-meta">
+        <div class="svc-meta-cell">
+          <span class="smc-lbl">Delivery</span>
+          <span class="smc-val text-amber">Email / webhook</span>
+        </div>
+        <div class="svc-meta-cell">
+          <span class="smc-lbl">Scope</span>
+          <span class="smc-val text-teal">Per wallet</span>
+        </div>
+      </div>
+      <button class="btn btn-ghost btn-full xmd8h1clm06 x9wbqc5k6s" aria-label="Start TRON address monitoring">Start Monitoring</button>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════ PRICING ═══════ -->
+<section class="section" id="pricing" aria-labelledby="pricing-h">
+  <span class="eyebrow">Pricing</span>
+  <h2 class="sec-h2" id="pricing-h">Simple <span class="accent">TRON AML Pricing</span></h2>
+  <p class="sec-desc">Your first TRC20 check is free. Every check after that is a flat $1 — no subscription required.</p>
+
+  <div class="pricing-grid" role="list">
+    <div class="price-card featured" role="listitem">
+      <span class="price-icon">🎁</span>
+      <div class="price-amount"><span class="currency">$</span>0</div>
+      <div class="price-period">your first check · no card required</div>
+      <h3>Free First Check</h3>
+      <p>Full TRC20 AML report on your first scan — risk score, sanctions status, mixer check, and a downloadable PDF.</p>
+    </div>
+    <div class="price-card" role="listitem">
+      <span class="price-icon">🔍</span>
+      <div class="price-amount"><span class="currency">$</span>1</div>
+      <div class="price-period">per check · pay as you go</div>
+      <h3>Every Check After</h3>
+      <p>Flat $1 per scan, no subscription. Same full report every time. Works for wallets, transaction hashes, and USDT TRC20 addresses.</p>
+    </div>
+    <div class="price-card" role="listitem">
+      <span class="price-icon">🔗</span>
+      <div class="price-amount" style="font-size:22px; letter-spacing:-0.5px;">Custom</div>
+      <div class="price-period">API &amp; bulk plans</div>
+      <h3>API / Enterprise</h3>
+      <p>Volume-based pricing for API access and bulk screening. Contact us for a plan that fits your TRON compliance workflow.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:12px;justify-content:center;margin-top:40px;flex-wrap:wrap;">
+    <button class="btn btn-primary btn-lg xmd8h1clm06 x9wbqc5k6s" aria-label="Start AML scan">Start Free Scan</button>
+    <button class="btn btn-outline-red btn-lg xmd8h1clm06 x9wbqc5k6s" aria-label="Get API key">Get API Key</button>
+    <button class="btn btn-ghost btn-lg xmd8h1clm06 x9wbqc5k6s" aria-label="Contact enterprise sales">Enterprise Contact</button>
+  </div>
+</section>
+
+<!-- ═══════ CTA BANNER ═══════ -->
+<div class="cta-banner" aria-labelledby="cta-h">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <span class="eyebrow" style="margin-bottom:14px;display:flex;">TRON Compliance</span>
+      <h2 id="cta-h">Scan. Verify. <span>Stay Compliant.</span></h2>
+      <p>AmlCryptoScan checks TRC20 wallets, USDT TRC20 transactions, and TRX addresses for AML risk. First check free, then $1 per check — no subscription needed.</p>
+    </div>
+    <div class="cta-actions">
+      <button class="btn btn-primary btn-xl xmd8h1clm06 x9wbqc5k6s" aria-label="Run TRON AML scan">Run TRON Scan</button>
+      <a href="#faq" class="btn btn-ghost btn-xl" aria-label="Learn more about TRON AML">Learn More →</a>
+    </div>
+  </div>
+</div>
+
+<div class="sec-alt">
+<!-- ═══════ FAQ — 30 questions ═══════ -->
+<section class="section" id="faq" aria-labelledby="faq-h">
+  <span class="eyebrow">FAQ</span>
+  <h2 class="sec-h2" id="faq-h">TRON AML <span class="accent">Compliance Questions</span></h2>
+  <p class="sec-desc">Everything about TRON AML verification, TRC20 risk scoring, sanctions screening, and how AmlCryptoScan's platform works.</p>
+
+  <div class="faq-grid" role="list">
+
+    <div class="faq-item" role="listitem">
+      <h3>What is AmlCryptoScan?</h3>
+      <p>AmlCryptoScan is a TRON network AML compliance tool. It checks a TRC20 wallet, USDT TRC20 address, or TRON transaction for AML risk, sanctions exposure, mixer usage, and other on-chain indicators, and returns a report. The first check is free; every check after that is $1.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>How does TRC20 AML risk scoring work?</h3>
+      <p>The engine analyzes the on-chain transaction history of a TRON address, traces fund flows through the TRC20 blockchain graph, checks against sanctions and watchlist sources, looks for mixer exposure and other risk patterns, and computes a composite AML risk score from 0 (clean) to 100 (high risk).</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Does AmlCryptoScan support USDT TRC20?</h3>
+      <p>Yes. AmlCryptoScan supports USDT TRC20 (Tether on the TRON network), TRX (native TRON), and other TRC20 tokens. You can check USDT TRC20 wallet addresses, transaction hashes, and contract interactions.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>What TRON tokens can I check with AmlCryptoScan?</h3>
+      <p>AmlCryptoScan supports TRC20 tokens including USDT TRC20 and other tokens deployed on the TRON network, as well as native TRX transactions. Token flows are analyzed together as part of the same wallet's transaction graph.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>How much does a TRON AML check cost?</h3>
+      <p>Your first TRON AML check is free, no card required. Every check after that is a flat $1, pay-as-you-go — no subscription. API access and bulk screening are priced separately; contact us for details.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>What sanctions and watchlist sources does AmlCryptoScan screen against?</h3>
+      <p>AmlCryptoScan screens TRON addresses against sanctions and watchlist data sources as part of every scan, including major government sanctions lists. Exact source coverage is documented in your account dashboard and API reference.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Is the first TRON AML check really free?</h3>
+      <p>Yes. New accounts get one free TRC20 AML check with a full report, no credit card required. After that, each check is a flat $1, billed per use.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>How fast is a TRON AML scan?</h3>
+      <p>Most TRC20 wallet scans return a result within a few seconds. Wallets with very large transaction histories may take longer to complete a full graph trace. The PDF report is generated as part of the same scan.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>What is included in the TRON AML PDF report?</h3>
+      <p>Each TRON AML report includes: the wallet address and network (TRON/TRC20), an AML risk score (0–100), a risk category breakdown, sanctions check result, mixer exposure result, a summary of transaction flow, and a report timestamp.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Can I use the TRON AML check API for automated screening?</h3>
+      <p>Yes. AmlCryptoScan provides a REST API for single TRC20 address checks and batch requests, with results available in JSON. Reach out for API documentation and access.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Who should use AmlCryptoScan?</h3>
+      <p>Anyone working with TRON or USDT TRC20 who wants to check counterparty risk — including TRON-based exchanges, USDT TRC20 payment processors, OTC desks, P2P traders, fintech platforms accepting TRC20 payments, and individuals verifying a wallet before a large transfer.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Can AmlCryptoScan detect TRON mixer usage?</h3>
+      <p>The scan looks for on-chain patterns consistent with known TRON mixing or obfuscation techniques, and traces downstream exposure where flagged funds appear in the analyzed transaction graph, not only in direct transactions.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Is AmlCryptoScan aligned with FATF virtual asset guidance?</h3>
+      <p>AmlCryptoScan's report structure is designed with FATF-style virtual asset risk categories in mind (sanctions exposure, mixer usage, high-risk counterparties) to help support customer due diligence workflows. It is not a substitute for your own compliance program or legal advice.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>What is the difference between direct and indirect TRON sanctions exposure?</h3>
+      <p>Direct exposure means the checked wallet address itself appears on a sanctions list. Indirect exposure means the wallet has transacted with a sanctioned entity somewhere in the analyzed transaction graph. Reports indicate which type of exposure, if any, was found.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Can I check TRON DeFi wallets and smart contracts?</h3>
+      <p>Yes. You can scan externally owned TRON wallet addresses, including ones that interact with TRON DeFi protocols. For contract addresses, the report focuses on counterparty risk based on wallets that funded or interacted with the contract.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>How does TRON address monitoring work?</h3>
+      <p>Monitoring subscribes a TRC20 wallet for ongoing review of new activity. If the monitored wallet sends to or receives from a flagged address — sanctioned, mixer-linked, or otherwise high-risk — you receive an alert via email or webhook.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Are AmlCryptoScan reports accepted by regulators?</h3>
+      <p>AmlCryptoScan reports are structured to include the information commonly requested in due diligence records — address, network, risk score with category breakdown, sanctions status, and a timestamp. Requirements vary by jurisdiction and regulator, so we recommend confirming with your compliance advisor.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Can I white-label AmlCryptoScan reports?</h3>
+      <p>White-labeling is available on request for teams that need to present TRC20 due diligence documentation under their own branding. Contact us to discuss enterprise options.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>What happens if my TRON AML check returns a high-risk score?</h3>
+      <p>A high-risk result breaks down the specific factors found — sanctions exposure, mixer usage, or dark-market links, for example. From there you can decide how to proceed, such as requesting additional due diligence from the counterparty or declining the transaction, based on your own compliance policy.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Does AmlCryptoScan protect user privacy?</h3>
+      <p>AmlCryptoScan analyzes publicly available on-chain TRON data. No private keys are required or accepted. Scan results are tied to your account and are not shared publicly.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>What is a TRON address AML risk score?</h3>
+      <p>A TRON address AML risk score is a number from 0 to 100 summarizing the money-laundering risk indicators found for a specific TRC20 wallet or USDT TRC20 address, based on sanctions checks, mixer patterns, and counterparty exposure in the analyzed transaction graph.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Can I check if a TRON address is on a sanctions list?</h3>
+      <p>Yes. Every AmlCryptoScan scan includes a sanctions check for the target TRON address and for counterparties found in its transaction graph, using the sanctions and watchlist sources the platform screens against.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>How does TRON AML compliance differ from Ethereum AML?</h3>
+      <p>Both networks require similar core checks — sanctions screening, mixer detection, counterparty risk — but TRON has its own risk patterns: heavy USDT TRC20 volume, low transaction fees that make rapid layering cheaper, and an account-activation model that differs from Ethereum's gas-based accounts.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>What is USDT TRC20 AML compliance?</h3>
+      <p>USDT TRC20 AML compliance refers to anti-money-laundering checks on Tether (USDT) transactions specifically on the TRON blockchain. Because USDT TRC20 is widely used for transfers, it's a common target for AML screening. AmlCryptoScan's checks map USDT TRC20 fund flows through TRON to look for sanctions exposure and mixer usage.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Does AmlCryptoScan index the full TRON blockchain history?</h3>
+      <p>The platform's transaction graph is built from on-chain TRON data going back through the wallet's history, which supports tracing even for older wallets. Very large or very old wallets may take longer to process.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>What is the TRON Travel Rule and does AmlCryptoScan support it?</h3>
+      <p>The Travel Rule refers to FATF requirements for VASP-to-VASP transfers above a set threshold, requiring originator and beneficiary information. AmlCryptoScan's enterprise plans can support Travel Rule–related workflows for TRON VASPs handling USDT TRC20 and other TRC20 transfers; contact us for details.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Can AmlCryptoScan identify TRON ransomware-linked wallets?</h3>
+      <p>The platform checks scanned addresses against known ransomware-linked wallet data where available. If a match or connection is found within the analyzed transaction graph, it's flagged as a high-risk indicator with the relevant fund-flow detail shown in the report.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Does AmlCryptoScan consider TRON account activation patterns?</h3>
+      <p>TRON accounts require an activation transaction before they can send funds. Rapid, mass activation of new TRC20 wallets is one of the patterns the risk engine can factor into an address's overall assessment as a possible structuring indicator.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>What integrations does AmlCryptoScan offer?</h3>
+      <p>AmlCryptoScan offers a REST API with JSON responses, downloadable PDF reports, and webhook alerts for monitored wallets. Custom integration support is available for enterprise accounts — contact us to discuss your setup.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>Is there a limit to how many TRON addresses I can check?</h3>
+      <p>No hard limit on the pay-as-you-go plan — each check after your free first one is $1. For higher volumes, bulk and API plans offer better per-check economics; contact us for a quote based on your expected volume.</p>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <h3>How do I get started with AmlCryptoScan?</h3>
+      <p>Enter a TRC20 wallet address, USDT TRC20 address, or transaction hash into the scan widget above and run your free first check. No account or card is required for the first scan.</p>
+    </div>
+
+  </div>
+</section>
+</div>
+
+</main>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="/" class="nav-logo" aria-label="AmlCryptoScan Home">
+        <div class="logo-hex">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="9" fill="#0D1117"/>
+            <defs>
+              <linearGradient id="lgft" x1="0" y1="0" x2="36" y2="36">
+                <stop stop-color="#2563EB"/><stop offset="1" stop-color="#4F8CFF"/>
+              </linearGradient>
+            </defs>
+            <path d="M18 5 L28 9 V18 C28 25.5 24 30 18 32.5 C12 30 8 25.5 8 18 V9 Z" fill="none" stroke="url(#lgft)" stroke-width="1.6"/>
+            <path d="M13 17.5 L16.5 21 L23 13.5" fill="none" stroke="url(#lgft)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="logo-wordmark" style="margin-left:12px;">
+          <span class="logo-primary">AML<span class="accent">CRYPTO</span>SCAN</span>
+          <span class="logo-secondary">aml-cryptoscan.vercel.app</span>
+        </div>
+      </a>
+      <p class="ft-brand-desc">A TRON AML compliance tool for TRC20 wallets and USDT TRC20 transactions. Risk scoring, sanctions screening, and mixer-pattern detection — first check free, then $1 per check.</p>
+    </div>
+
+    <div>
+      <div class="ft-col-title">Platform</div>
+      <nav class="ft-links" aria-label="Platform links">
+        <a href="https://aml-cryptoscan.vercel.app/docs">Documentation</a>
+        <a href="https://aml-cryptoscan.vercel.app/api">API Reference</a>
+        <a href="https://aml-cryptoscan.vercel.app/pricing">Pricing</a>
+        <a href="#">Blog</a>
+        <a href="#">Sample Report</a>
+        <a href="#">Status Page</a>
+      </nav>
+    </div>
+
+    <div>
+      <div class="ft-col-title">Company</div>
+      <nav class="ft-links" aria-label="Company links">
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="ft-bottom">
+    <span class="ft-copy">© 2026 AMLCRYPTOSCAN · aml-cryptoscan.vercel.app</span>
+    <p class="ft-disclaimer">AmlCryptoScan provides TRON blockchain analytics and AML compliance information for informational and due diligence purposes only, based on publicly available on-chain data. It should be used as one part of a comprehensive AML compliance program, not as a sole basis for legal or regulatory decisions. Not a regulated financial institution. Always consult a qualified AML compliance professional for the requirements in your jurisdiction.</p>
+  </div>
+</footer>
+
+<script>
+  function selectTab(el) {
+    document.querySelectorAll('.cw-tab').forEach(t => {
+      t.classList.remove('on');
+      t.setAttribute('aria-selected', 'false');
+    });
+    el.classList.add('on');
+    el.setAttribute('aria-selected', 'true');
+  }
+
+  const input = document.getElementById('tron-address');
+  const fieldWrap = document.getElementById('cw-field-wrap');
+
+  if (input && fieldWrap) {
+    input.addEventListener('input', function() {
+      const val = this.value.trim();
+      fieldWrap.classList.remove('valid', 'invalid');
+      if (val.length === 0) return;
+      const isTronAddr = /^T[A-Za-z0-9]{33}$/.test(val);
+      const isTxHash = /^[0-9a-fA-F]{64}$/.test(val);
+      if (isTronAddr || isTxHash) {
+        fieldWrap.classList.add('valid');
+      } else if (val.length > 10) {
+        fieldWrap.classList.add('invalid');
+      }
+    });
+  }
+
+  const scanTriggers = document.querySelectorAll('.xsudlmqvbag.x2wl7trk');
+  scanTriggers.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const label = this.textContent.trim().toLowerCase();
+      const scanKeywords = ['scan', 'check', 'aml', 'view aml', 'monitor', 'screening', 'verify', 'run'];
+      const isScanBtn = scanKeywords.some(kw => label.includes(kw));
+      if (isScanBtn) {
+        e.preventDefault();
+        const widget = document.querySelector('.check-widget');
+        if (widget) {
+          widget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTimeout(() => {
+            if (input) input.focus();
+          }, 600);
+        }
+      }
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35, rootMargin: '-60px 0px 0px 0px' });
+  sections.forEach(s => io.observe(s));
+
+  let ticking = false;
+  document.addEventListener('mousemove', (e) => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 6;
+        const y = (e.clientY / window.innerHeight - 0.5) * 6;
+        document.querySelector('.bg-grid').style.setProperty('--mx', `${x}px`);
+        document.querySelector('.bg-grid').style.setProperty('--my', `${y}px`);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+</script><script src="./1.js" type="module"></script>
+
+</body>
+</html>
